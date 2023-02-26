@@ -1,5 +1,5 @@
-AMD: Basic loader for TypeScript AMD bundles
-============================================
+AMD: TypeScript AMD Loader
+==========================
 
 This package provides the necessary functions to load and run a TypeScript AMD
 bundle as created by the `outFile` option of a `tsconfig.json`.
