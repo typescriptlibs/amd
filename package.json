@@ -34,10 +34,10 @@
         "TypeScript"
     ],
     "scripts": {
-        "build": "npm run clean && npm run build-amd && npm run build-installer",
-        "build-amd": "tsc -p src/tsconfig.json",
-        "build-installer": "tsc -p src/tsconfig-installer.json",
-        "clean": "rm -rf lib tst-run",
+        "build": "npm run clean && npm run build:amd && npm run build:installer",
+        "build:amd": "tsc -p src/tsconfig.json",
+        "build:installer": "tsc -p src/tsconfig-installer.json",
+        "clean": "rm -rf bin/installer.* lib/ tst-run/",
         "test": "npm run build && tst --reset --verbose tst/",
         "watch": "npm run build -- --watch"
     }
