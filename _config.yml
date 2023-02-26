@@ -1,7 +1,7 @@
 # GitHub Pages config
 
-title: TypeScript AMD
-description: Basic implementation to run TypeScript AMD bundles.
+title: TypeScript AMD Loader
+description: Basic loader to run TypeScript AMD bundles.
 author: © TypeScriptLibs and Contributors
 
 email: bug@typescriptlibs.org
@@ -12,13 +12,17 @@ github:
   private: true
 
 header_pages:
+  - www/downloads.md
   - SECURITY.md
   - LICENSE.md
   - www/all-libraries.md
 
 include:
   - LICENSE.md
+  - README.md
+  - SECURITY.md
   - www/all-libraries.md
+  - www/downloads.md
 
 plugins:
   - jekyll-feed
