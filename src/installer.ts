@@ -1,6 +1,6 @@
 /*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*\
 
-  TypeScript AMD
+  TypeScript AMD Loader
 
   Copyright (c) TypeScriptLibs and Contributors
 

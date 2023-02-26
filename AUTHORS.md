@@ -1,2 +1,2 @@
-TypeScript AMD is authored by:
+TypeScript AMD Loader is authored by:
 * Sophie Bremer
