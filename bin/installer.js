@@ -35,12 +35,18 @@ export class Installer {
                 console.info(Installer.VERSION);
                 return;
             }
-            const source = Path.relative(Installer.CWD, Path.join(Installer.DIR, '..', 'lib', 'amd.js'));
-            const target = Path.join(Installer.CWD, Path.join(this.target, 'amd.js'));
-            if (argv.includes('--verbose')) {
-                console.log(`Copy ${source} to ${target}`);
+            const files = ['amd.js'];
+            if (argv.includes('--sourcemap')) {
+                files.push('amd.js.map');
             }
-            await FS.promises.copyFile(source, target);
+            for (const file of files) {
+                const source = Path.relative(Installer.CWD, Path.join(Installer.DIR, '..', 'lib', file));
+                const target = Path.join(Installer.CWD, Path.join(this.target, file));
+                if (argv.includes('--verbose')) {
+                    console.log(`Copy ${source} to ${target}`);
+                }
+                await FS.promises.copyFile(source, target);
+            }
         }
         catch (error) {
             console.error(error);
@@ -51,7 +57,7 @@ export class Installer {
 (function (Installer) {
     Installer.CWD = process.cwd();
     Installer.DIR = Path.dirname(import.meta.url.substring(7));
-    Installer.VERSION = 'Version 1.0.0';
+    Installer.VERSION = 'Version 1.1.0';
     Installer.HELP = [
         `install-amd: TypeScript AMD - ${Installer.VERSION}`,
         '',
@@ -67,14 +73,19 @@ export class Installer {
         '',
         '  --help, -h     Prints this help text.',
         '',
+        '  --sourcemap    Copies also the source map.',
+        '',
         '  --verbose      Prints installation details.',
         '',
         '  --version, -v  Prints the version string.',
         '',
         'EXAMPLES:',
         '',
-        '  install-amd app/',
+        '  npx install-amd app/',
         '  Copies the AMD file in the "app" folder.',
+        '',
+        '  npx install-amd --sourcemap scripts/',
+        '  Copies both AMD files in the "scripts" folder.',
     ];
     async function run(argv) {
         return new Installer(argv).run();

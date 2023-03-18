@@ -73,3 +73,28 @@ test( 'Test install-amd', async ( assert: test.Assert ) => {
         'Expected amd.js file should exist in the "tst-run" folder.'
     );
 } );
+
+test( 'Test --sourcemap', async ( assert: test.Assert ) => {
+    const result = await exec( 'npx install-amd --sourcemap --verbose' );
+
+    assert.ok(
+        result[0].startsWith( 'Copy ../lib/amd.js' ),
+        'Copy message should start with correct path.'
+    );
+
+    assert.ok(
+        result[0].includes( 'Copy ../lib/amd.js.map' ),
+        'Copy message should continue with correct path.'
+    );
+
+    assert.ok(
+        await isFile( 'amd.js' ),
+        'Expected amd.js file should exist in the "tst-run" folder.'
+    );
+
+    assert.ok(
+        await isFile( 'amd.js.map' ),
+        'Expected amd.js.map file should exist in the "tst-run" folder.'
+    );
+
+} );

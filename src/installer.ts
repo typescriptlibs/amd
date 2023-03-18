@@ -87,14 +87,22 @@ export class Installer {
                 return;
             }
 
-            const source = Path.relative( Installer.CWD, Path.join( Installer.DIR, '..', 'lib', 'amd.js' ) );
-            const target = Path.join( Installer.CWD, Path.join( this.target, 'amd.js' ) );
+            const files = ['amd.js'];
 
-            if ( argv.includes( '--verbose' ) ) {
-                console.log( `Copy ${source} to ${target}` );
+            if ( argv.includes( '--sourcemap' ) ) {
+                files.push( 'amd.js.map' );
             }
 
-            await FS.promises.copyFile( source, target );
+            for ( const file of files ) {
+                const source = Path.relative( Installer.CWD, Path.join( Installer.DIR, '..', 'lib', file ) );
+                const target = Path.join( Installer.CWD, Path.join( this.target, file ) );
+
+                if ( argv.includes( '--verbose' ) ) {
+                    console.log( `Copy ${source} to ${target}` );
+                }
+
+                await FS.promises.copyFile( source, target );
+            }
         }
         catch ( error ) {
             console.error( error );
@@ -133,7 +141,7 @@ export namespace Installer {
 
     export const DIR = Path.dirname( import.meta.url.substring( 7 ) );
 
-    export const VERSION = 'Version 1.0.0';
+    export const VERSION = 'Version 1.1.0';
 
     export const HELP = [
         `install-amd: TypeScript AMD - ${VERSION}`,
@@ -150,14 +158,19 @@ export namespace Installer {
         '',
         '  --help, -h     Prints this help text.',
         '',
+        '  --sourcemap    Copies also the source map.',
+        '',
         '  --verbose      Prints installation details.',
         '',
         '  --version, -v  Prints the version string.',
         '',
         'EXAMPLES:',
         '',
-        '  install-amd app/',
+        '  npx install-amd app/',
         '  Copies the AMD file in the "app" folder.',
+        '',
+        '  npx install-amd --sourcemap scripts/',
+        '  Copies both AMD files in the "scripts" folder.',
     ];
 
     /* *
