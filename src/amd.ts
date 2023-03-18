@@ -43,7 +43,7 @@ interface AMDModule extends Record<string, any> {
  * Module definition.
  */
 function define ( m: string, io: Array<string>, fn: Function ): void {
-    fn.apply( undefined, [require, require.module[m] = {}, ...io.slice( 2 ).map( require )] );
+    fn.apply( undefined, [require, require.module[define.prefix + m] = {}, ...io.slice( 2 ).map( require )] );
 }
 
 /**
@@ -66,6 +66,11 @@ function require (
  *  Function Properties
  *
  * */
+
+/**
+ * Defines a prefix for all new module definitions.
+ */
+define.prefix = '';
 
 /**
  * Contains the available modules. Usually the path is based on the `rootDir`
