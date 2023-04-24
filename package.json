@@ -5,7 +5,7 @@
     "license": "MIT",
     "name": "@typescriptlibs/amd",
     "type": "module",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "main": "lib/amd.js",
     "types": "lib/amd.d.ts",
     "bugs": "https://github.com/typescriptlibs/amd/issues",
