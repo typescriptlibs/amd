@@ -2,6 +2,7 @@
     "extends": "../tsconfig.json",
     "compilerOptions": {
         "alwaysStrict": false,
+        "declaration": true,
         "removeComments": true,
         "sourceMap": true,
         "outDir": "../lib/",
