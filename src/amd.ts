@@ -33,32 +33,49 @@ interface AMDModule extends Record<string, any> {
 /**
  * Defines a TypeScrip AMD module for require.
  *
- * @param m
+ * @param path
  * Module path of definition.
  *
- * @param io
+ * @param imports
  * Module imports of definition.
  *
- * @param fn
+ * @param definition
  * Module definition.
  */
-function define ( m: string, io: Array<string>, fn: Function ): void {
-    fn.apply( undefined, [require, require.module[define.prefix + m] = {}, ...io.slice( 2 ).map( require )] );
+function define (
+    path: string,
+    imports: Array<string>,
+    definition: Function
+): void {
+    const prefix = define.prefix;
+    const prequire = ( path: string ): ( AMDModule | undefined ) => (
+        require( prefix + path ) ||
+        require( path )
+    );
+
+    definition.apply(
+        undefined,
+        [
+            prequire,
+            require.module[prefix + path] = {},
+            ...imports.slice( 2 ).map( prequire )
+        ]
+    );
 }
 
 /**
  * Returns a TypeScrip AMD module.
  *
- * @param m
+ * @param path
  * Module path to return.
  *
  * @return
  * Module or `undefined`, if not found.
  */
 function require (
-    m: string
+    path: string
 ): ( AMDModule | undefined ) {
-    return require.module[m];
+    return require.module[path];
 }
 
 /* *
