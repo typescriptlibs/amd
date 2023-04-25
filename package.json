@@ -15,7 +15,6 @@
         "install-amd": "bin/install-amd.mjs"
     },
     "devDependencies": {
-        "@typescriptlibs/amd": "file:./",
         "@typescriptlibs/tst": "^0.0.5",
         "uglify-js": "^3.17.4",
         "typescript": "~5.0.4"
