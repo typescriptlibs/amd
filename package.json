@@ -15,12 +15,13 @@
         "install-amd": "bin/install-amd.mjs"
     },
     "devDependencies": {
-        "@typescriptlibs/tst": "^0.0.5",
+        "@types/node": "18.16.0",
+        "@typescriptlibs/tst": "^0.1.0",
         "uglify-js": "^3.17.4",
-        "typescript": "~5.0.4"
+        "typescript": "~5.4.2"
     },
     "engines": {
-        "node": ">=16.8.0"
+        "node": ">=18.16.0"
     },
     "files": [
         "bin/",
