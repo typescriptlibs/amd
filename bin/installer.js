@@ -4,9 +4,9 @@
 
   Copyright (c) TypeScriptLibs and Contributors
 
-  Licensed under the MIT License; you may not use this file except in
-  compliance with the License. You may obtain a copy of the MIT License at
-  https://typescriptlibs.org/LICENSE.txt
+  Licensed under the MIT License.
+  You may not use this file except in compliance with the License.
+  You can get a copy of the License at https://typescriptlibs.org/LICENSE.txt
 
 \*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*/
 import * as FS from 'node:fs';
@@ -45,6 +45,7 @@ export class Installer {
                 if (argv.includes('--verbose')) {
                     console.log(`Copy ${source} to ${target}`);
                 }
+                await FS.promises.mkdir(Path.dirname(target), { recursive: true });
                 await FS.promises.copyFile(source, target);
             }
         }
@@ -91,6 +92,6 @@ export class Installer {
         return new Installer(argv).run();
     }
     Installer.run = run;
-})(Installer = Installer || (Installer = {}));
+})(Installer || (Installer = {}));
 export default Installer;
 //# sourceMappingURL=installer.js.map

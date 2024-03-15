@@ -4,9 +4,9 @@
 
   Copyright (c) TypeScriptLibs and Contributors
 
-  Licensed under the MIT License; you may not use this file except in
-  compliance with the License. You may obtain a copy of the MIT License at
-  https://typescriptlibs.org/LICENSE.txt
+  Licensed under the MIT License.
+  You may not use this file except in compliance with the License.
+  You can get a copy of the License at https://typescriptlibs.org/LICENSE.txt
 
 \*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*/
 
@@ -94,13 +94,23 @@ export class Installer {
             }
 
             for ( const file of files ) {
-                const source = Path.relative( Installer.CWD, Path.join( Installer.DIR, '..', 'lib', file ) );
-                const target = Path.join( Installer.CWD, Path.join( this.target, file ) );
+                const source = Path.relative(
+                    Installer.CWD,
+                    Path.join( Installer.DIR, '..', 'lib', file )
+                );
+                const target = Path.join(
+                    Installer.CWD,
+                    Path.join( this.target, file )
+                );
 
                 if ( argv.includes( '--verbose' ) ) {
                     console.log( `Copy ${source} to ${target}` );
                 }
 
+                await FS.promises.mkdir(
+                    Path.dirname( target ),
+                    { recursive: true }
+                );
                 await FS.promises.copyFile( source, target );
             }
         }
