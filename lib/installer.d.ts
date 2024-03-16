@@ -25,7 +25,7 @@ export declare namespace Installer {
     }
     const CWD: string;
     const DIR: string;
-    const VERSION = "Version 1.1.0";
+    const VERSION: string;
     const HELP: string[];
     function run(argv: Array<string>): Promise<void>;
 }

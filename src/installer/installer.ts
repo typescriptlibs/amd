@@ -187,7 +187,15 @@ export namespace Installer {
     export const DIR = Path.dirname( import.meta.url.substring( 7 ) );
 
 
-    export const VERSION = 'Version 1.1.0';
+    export const VERSION = 'Version ' + (
+        JSON.parse(
+            FS.readFileSync(
+                Path.join( DIR, '..', 'package.json' ),
+                'utf8'
+            )
+        ).version ||
+        '1.3.0'
+    );
 
 
     export const HELP = [
