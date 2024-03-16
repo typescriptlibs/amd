@@ -36,8 +36,8 @@
     ],
     "scripts": {
         "build": "npm run clean && npm run build:amd && npm run build:installer",
-        "build:amd": "tsc -p src/tsconfig.json && uglifyjs -cmo lib/amd.js --comments /^!/ --source-map url=amd.js.map -- lib/amd.js",
-        "build:installer": "tsc -p src/tsconfig-installer.json",
+        "build:amd": "tsc -p src/ && uglifyjs -cmo lib/amd.js --comments /^!/ --source-map url=amd.js.map -- lib/amd.js",
+        "build:installer": "tsc -p src/installer/",
         "clean": "rm -rf bin/installer.* lib/ tst-run/",
         "test": "npm run build && tst --reset --verbose tst/",
         "watch": "npm run build -- --watch"

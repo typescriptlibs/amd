@@ -11,6 +11,6 @@
         "types": []
     },
     "files": [
-        "./amd.ts"
+        "amd.ts"
     ]
 }

@@ -10,15 +10,20 @@
 
 \*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*i*/
 
+
 /* *
  *
  *  Imports
  *
  * */
 
+
 import * as FS from 'node:fs';
+
 import * as OS from 'node:os';
+
 import * as Path from 'node:path';
+
 
 /* *
  *
@@ -26,7 +31,9 @@ import * as Path from 'node:path';
  *
  * */
 
+
 export class Installer {
+
 
     /* *
      *
@@ -34,9 +41,11 @@ export class Installer {
      *
      * */
 
+
     public constructor (
         argv: Array<string>
     ) {
+
         this.argv = argv;
 
         let target = argv[argv.length - 1];
@@ -45,11 +54,13 @@ export class Installer {
             target.startsWith( '-' ) ||
             target.startsWith( '/' )
         ) {
-            target = "./";
+            target = ".";
         }
 
-        this.target = target;
+        this.target = Path.join( '.', target );
+
     }
+
 
     /* *
      *
@@ -57,9 +68,12 @@ export class Installer {
      *
      * */
 
+
     public readonly argv: Array<string>;
 
+
     public readonly target: string;
+
 
     /* *
      *
@@ -67,9 +81,12 @@ export class Installer {
      *
      * */
 
+
     public async run (): Promise<void> {
+        const argv = this.argv;
+        const verbose = argv.includes( '--verbose' );
+
         try {
-            const argv = this.argv;
 
             if (
                 argv.includes( '-h' ) ||
@@ -96,30 +113,40 @@ export class Installer {
             for ( const file of files ) {
                 const source = Path.relative(
                     Installer.CWD,
-                    Path.join( Installer.DIR, '..', 'lib', file )
+                    Path.join( Installer.DIR, file )
                 );
-                const target = Path.join(
-                    Installer.CWD,
-                    Path.join( this.target, file )
-                );
+                const target = Path.join( this.target, file );
 
-                if ( argv.includes( '--verbose' ) ) {
+                if ( verbose ) {
                     console.log( `Copy ${source} to ${target}` );
                 }
 
-                await FS.promises.mkdir(
-                    Path.dirname( target ),
-                    { recursive: true }
-                );
+                if ( argv.includes( '--recursive' ) ) {
+                    await FS.promises.mkdir(
+                        this.target,
+                        {
+                            recursive: true
+                        }
+                    );
+                }
+                else if ( !FS.existsSync( this.target ) ) {
+                    throw new Error( `Folder does not exist: ./${this.target}` );
+                }
+
                 await FS.promises.copyFile( source, target );
             }
+
         }
         catch ( error ) {
-            console.error( error );
+            console.error( verbose ? error : `${error}\n` );
             process.exit( 1 );
         }
+
     }
+
+
 }
+
 
 /* *
  *
@@ -127,7 +154,9 @@ export class Installer {
  *
  * */
 
+
 export namespace Installer {
+
 
     /* *
      *
@@ -135,11 +164,15 @@ export namespace Installer {
      *
      * */
 
+
     export interface Args extends Partial<Record<string, ( boolean | string )>> {
         help?: boolean;
+        recursive?: boolean;
         source?: string;
+        verbose?: boolean;
         version?: boolean;
     }
+
 
     /* *
      *
@@ -147,11 +180,15 @@ export namespace Installer {
      *
      * */
 
+
     export const CWD = process.cwd();
+
 
     export const DIR = Path.dirname( import.meta.url.substring( 7 ) );
 
+
     export const VERSION = 'Version 1.1.0';
+
 
     export const HELP = [
         `install-amd: TypeScript AMD - ${VERSION}`,
@@ -168,6 +205,8 @@ export namespace Installer {
         '',
         '  --help, -h     Prints this help text.',
         '',
+        '  --recursive    Recursive creation of missing folders.',
+        '',
         '  --sourcemap    Copies also the source map.',
         '',
         '  --verbose      Prints installation details.',
@@ -183,11 +222,13 @@ export namespace Installer {
         '  Copies both AMD files in the "scripts" folder.',
     ];
 
+
     /* *
      *
      *  Functions
      *
      * */
+
 
     export async function run (
         argv: Array<string>
@@ -195,12 +236,15 @@ export namespace Installer {
         return new Installer( argv ).run();
     }
 
+
 }
+
 
 /* *
  *
  *  Default Export
  *
  * */
+
 
 export default Installer;

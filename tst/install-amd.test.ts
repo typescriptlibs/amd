@@ -45,24 +45,11 @@ const OUT_DIR = 'tst-run';
 
 
 function exec ( command: string ): Promise<[string, string]> {
-    return new Promise( ( resolve, reject ) => {
+    return new Promise( ( resolve ) => {
         ChildProcess.exec( command, {
             cwd: OUT_DIR
-        }, ( error, stdout, stderr ) => {
-
-            if ( stdout ) {
-                console.log( stdout );
-            }
-
-            if ( stderr ) {
-                console.log( stderr );
-            }
-
-            if ( error ) {
-                reject( error );
-            } else {
-                resolve( [stdout, stderr] );
-            }
+        }, ( _error, stdout, stderr ) => {
+            resolve( [stdout, stderr] );
         } );
     } );
 }
@@ -122,12 +109,25 @@ test( 'Test --sourcemap', async ( assert: test.Assert ) => {
 } );
 
 
-test( 'Test missing folder', async ( assert: test.Assert ) => {
+test( 'Test --recursive', async ( assert: test.Assert ) => {
     const filePath = Path.join( OUT_DIR, 'extras', 'amd.js' );
 
     FS.rmSync( filePath, { force: true, recursive: true } );
 
-    await exec( 'npx install-amd extras' );
+    let result = await exec( 'npx install-amd extras' );
+
+    assert.ok(
+        result[1].startsWith( 'Error: Folder does not exist' ),
+        'Installer should exit with error message.'
+    );
+
+    result = await exec( 'npx install-amd --recursive extras' );
+
+    assert.strictEqual(
+        result[1],
+        '',
+        'Installer should complete without error.'
+    );
 
     assert.ok(
         FS.existsSync( filePath ),
