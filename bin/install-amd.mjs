@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import Installer from './installer.js';
+import Installer from '../lib/installer.js';
 
 Installer
     .run( process.argv.slice( 1 ) )
