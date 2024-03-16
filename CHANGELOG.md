@@ -3,6 +3,18 @@ Changelog
 
 
 
+v1.3.0
+------
+
+* Create missing folders of installation target
+  - Close #11, Create missing folder of installation target with `--recursive` option
+  - Update Node.js dependency to at least v18.16
+* Fix version number of installer
+
+**Full Changelog**: https://github.com/typescriptlibs/amd/compare/v1.2.2...v1.3.0
+
+
+
 v1.2.2
 ------
 
