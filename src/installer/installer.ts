@@ -184,7 +184,7 @@ export namespace Installer {
     export const CWD = process.cwd();
 
 
-    export const DIR = Path.dirname( import.meta.url.substring( 7 ) );
+    export const DIR = Path.dirname( decodeURIComponent( import.meta.url.substring( 7 ) ) );
 
 
     export const VERSION = 'Version ' + (
