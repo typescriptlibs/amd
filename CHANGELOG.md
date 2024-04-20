@@ -3,6 +3,15 @@ Changelog
 
 
 
+v1.3.1
+------
+
+* Fix escaped path spaces
+
+**Full Changelog**: https://github.com/typescriptlibs/amd/compare/v1.3.0...v1.3.1
+
+
+
 v1.3.0
 ------
 
