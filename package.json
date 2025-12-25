@@ -9,7 +9,7 @@
     "main": "lib/amd.js",
     "types": "lib/amd.d.ts",
     "bugs": "https://github.com/typescriptlibs/amd/issues",
-    "homepage": "https://typescriptlibs.org/amd/",
+    "homepage": "https://typescriptlibs.eu/amd/",
     "repository": "https://github.com/typescriptlibs/amd.git",
     "bin": {
         "install-amd": "bin/install-amd.mjs"
