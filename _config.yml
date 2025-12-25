@@ -4,7 +4,7 @@ title: TypeScript AMD Loader
 description: Basic loader to run TypeScript AMD bundles.
 author:
   name: © TypeScriptLibs and Contributors
-  email: bug@typescriptlibs.org
+  email: bug@typescriptlibs.eu
 
 github:
   private: true
