@@ -2,6 +2,6 @@ Downloads
 =========
 
 To download the package, go to
-[typescriptlibs.org/package/amd.html](https://typescriptlibs.org/package/amd.html).
+[typescriptlibs.eu/package/amd.html](https://typescriptlibs.eu/package/amd.html).
 
-<script type="text/javascript">location.href="https://typescriptlibs.org/package/amd.html";</script>
+<script type="text/javascript">location.href="https://typescriptlibs.eu/package/amd.html";</script>
